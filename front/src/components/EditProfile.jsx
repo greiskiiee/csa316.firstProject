@@ -1,9 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import axios from "axios";
 import { Button } from "./ui/button";
+import PropTypes from "prop-types";
+
+EditProfile.propTypes = {
+  _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+};
 
 export default function EditProfile({ _id }) {
   const [name, setName] = useState("");
@@ -36,7 +41,7 @@ export default function EditProfile({ _id }) {
           username: name,
           email: email,
         })
-        .then((res) => {
+        .then(() => {
           alert("Profile updated successfully.");
           setOriginalUser({ name, email });
         })
@@ -76,7 +81,7 @@ export default function EditProfile({ _id }) {
         />
       </div>
       <div>
-        <Label htmlFor="email" className="text-[#2a2c41] text-[12px]">
+        <Label htmlFor="tel" className="text-[#2a2c41] text-[12px]">
           Phone number
         </Label>
         <Input

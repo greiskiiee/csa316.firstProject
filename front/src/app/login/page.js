@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
@@ -9,15 +9,8 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
-  const [userData, setUser] = useState({
-    email: "",
-    username: "",
-    password: "",
-    phoneNumber: "",
-  });
-
-  const emailRef = useRef("");
-  const passwordRef = useRef("");
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const [passError, setPassError] = useState("");
 
@@ -26,15 +19,18 @@ export default function Login() {
   const router = useRouter();
 
   const handleLogIn = async () => {
-    const data = {
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-    };
+    const email = emailRef.current?.value || "";
+    const password = passwordRef.current?.value || "";
+
+    if (!email || !password) {
+      setPassError("Please fill all fields.");
+      return;
+    }
 
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URI}/login`,
-        data
+        { email, password }
       );
 
       const token = response.data.token;
@@ -50,6 +46,7 @@ export default function Login() {
           router.push("/login");
         }, expiryTime);
       }
+      setMessage(true);
 
       router.push("/home");
     } catch (error) {
@@ -57,20 +54,23 @@ export default function Login() {
         setPassError("Invalid password or email.");
       }
       console.error("Login failed:", error);
+      setMessage(false);
     }
   };
 
   const sendMail = async () => {
-    const userMail = emailRef.current.value;
+    const email = emailRef.current?.value;
+
+    if (!email) {
+      alert("Please enter your email first.");
+      return;
+    }
+
     const otp = Math.floor(Math.random() * 100000) + 10000;
     console.log(otp);
     try {
-      //   const user = await axios.get(
-      //     `${process.env.NEXT_PUBLIC_BACKEND_URI}/user/${userId}`
-      //   );
-      //   const userMail = user.data.user.email;
       await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/mail`, {
-        email: userMail,
+        email: email,
         subject: "Hello, here is your password",
         text: `Your otp is ${otp}. Please update your password.`,
       });
@@ -95,7 +95,7 @@ export default function Login() {
           <div className="w-full h-full py-5 flex flex-col justify-center items-start gap-8">
             <div className="flex justify-start items-center gap-1">
               <p className="text-[#2a2c41] montserrat text-[16px] lg:text-[22px]">
-                Don't have an account?{" "}
+                Don&apost have an account?{" "}
                 <span
                   className="text-[#fcc050] montserrat underline cursor-pointer"
                   onClick={() => router.push("/")}
@@ -157,10 +157,8 @@ export default function Login() {
               </button>
 
               {userAdded && (
-                <p className="montserrat text-[12px] font-[500] text-[#f00]">
-                  {userAdded === "success"
-                    ? "Logged in successfully!"
-                    : "Please fill all fields"}
+                <p className="montserrat text-[12px] font-[500] text-green-500">
+                  Logged in successfully!
                 </p>
               )}
             </div>

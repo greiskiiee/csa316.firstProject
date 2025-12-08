@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
@@ -12,12 +12,6 @@ export const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(null);
 
-  const [userData, setUser] = useState({
-    email: "",
-    username: "",
-    password: "",
-    phoneNumber: "",
-  });
   const emailRef = useRef("");
   const usernameRef = useRef("");
   const passwordRef = useRef("");
@@ -56,7 +50,7 @@ export const SignUp = () => {
     }
   };
 
-  const handleSubmit = async (req, res) => {
+  const handleSubmit = async () => {
     const data = {
       username: usernameRef.current.value,
       email: emailRef.current.value,
@@ -64,10 +58,7 @@ export const SignUp = () => {
       phoneNumber: phoneNumberRef.current.value,
     };
     try {
-      const user = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URI}/user`,
-        data
-      );
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user`, data);
       setMessage("success");
 
       setTimeout(() => router.push("/login"), 1500);
