@@ -95,7 +95,7 @@ export default function Login() {
           <div className="w-full h-full py-5 flex flex-col justify-center items-start gap-8">
             <div className="flex justify-start items-center gap-1">
               <p className="text-[#2a2c41] montserrat text-[16px] lg:text-[22px]">
-                Don&apost have an account?{" "}
+                Don&#39;t have an account?{" "}
                 <span
                   className="text-[#fcc050] montserrat underline cursor-pointer"
                   onClick={() => router.push("/")}
