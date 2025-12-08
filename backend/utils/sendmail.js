@@ -19,7 +19,7 @@ export const sendMail = async (email, subject, text) => {
     text: text,
   };
   try {
-    const response = await transporter.sendMail(info);
+    await transporter.sendMail(info);
   } catch (err) {
     console.log(err);
   }

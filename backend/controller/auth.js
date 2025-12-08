@@ -3,6 +3,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
 import { sendMail } from "../utils/sendmail.js";
+import { OTP } from "../model/otp.js";
+
+const otpGenerator = require("otp-generator");
 
 config();
 
@@ -48,5 +51,46 @@ export const sendmailer = async (req, res) => {
     res.status(200).send({ succes: true, data: response }).end();
   } catch (err) {
     res.status(500).send({ succes: false, error: err }).end();
+  }
+};
+
+export const otpgenerate = async () => {
+  const { email } = req.body;
+
+  const otp = otpGenerator.generate(4, {
+    digits: true,
+    alphabets: false,
+    upperCase: false,
+    specialChars: false,
+  });
+
+  try {
+    await OTP.create({ email, otp });
+    const response = await sendMail(
+      email,
+      "OTP Verification",
+      `Your OTP for verification is: ${otp}`
+    );
+    res.status(200).send({ succes: true, data: response }).end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error sending OTP");
+  }
+};
+
+export const verifyOtp = async (req, res) => {
+  const { email, otp } = req.body;
+
+  try {
+    const otpRecord = await OTP.findOne({ email, otp }).exec();
+
+    if (otpRecord) {
+      res.status(200).send("OTP verified successfully");
+    } else {
+      res.status(400).send("Invalid OTP");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error verifying OTP");
   }
 };

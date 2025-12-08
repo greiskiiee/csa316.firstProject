@@ -1,6 +1,15 @@
 import express from "express";
-import { login, sendmailer } from "../controller/auth.js";
+import {
+  login,
+  otpgenerate,
+  sendmailer,
+  verifyOtp,
+} from "../controller/auth.js";
 
 export const authRouter = express.Router();
 
-authRouter.post("/", login).post("/mail", sendmailer);
+authRouter
+  .post("/", login)
+  .post("/mail", sendmailer)
+  .post("/otp", otpgenerate)
+  .post("/verify-otp", verifyOtp);
