@@ -10,8 +10,6 @@ jobs:
   install:
     name: Install dependencies
     runs-on: ubuntu-latest
-    outputs:
-      node-modules-cache: ${{ steps.cache.outputs.cache-hit }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
