@@ -74,26 +74,20 @@ export const SignUp = () => {
     }
   };
   return (
-    <div className="w-full h-full py-5 flex flex-col justify-center items-start gap-8">
+    <div className="md:w-[60%] w-full h-full py-5 flex flex-col justify-center items-start gap-8">
       <div className="flex justify-start items-center gap-1">
-        <p className="text-[#2a2c41] montserrat text-[16px] lg:text-[22px]">
-          Бүртгэлтэй бол{" "}
-          <span
-            className="text-[#fcc050] montserrat underline cursor-pointer"
-            onClick={() => router.push("/login")}
-          >
-            Нэвтрэх
-          </span>
+        <p className="text-[#2a2c41] montserrat text-3xl font-bold">
+          Бүртгүүлэх
         </p>
       </div>
 
-      <div className="w-full flex flex-col gap-3">
+      <div className="w-full flex flex-col gap-6">
         {/* Email */}
-        <div className="grid w-full max-w-sm items-center gap-1.5">
+        <div className="grid w-full items-center gap-1.5">
           <Label className="text-[#2a2c41]">И-мэйл хаяг</Label>
           <Input
             type="email"
-            className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
+            className="py-1 px-4 rounded-md bg-white"
             placeholder="Энд и-мэйлээ оруулна уу"
             ref={emailRef}
             onChange={handleEmail}
@@ -102,20 +96,20 @@ export const SignUp = () => {
         </div>
 
         {/* Username */}
-        <div className="grid w-full max-w-sm items-center gap-1.5">
+        <div className="grid w-full items-center gap-1.5">
           <Label className="text-[#2a2c41]">Нэвтрэх нэр</Label>
           <Input
             type="text"
-            className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
+            className="py-1 px-4 rounded-md bg-white"
             placeholder="Энд нэвтрэх нэрээ оруулна уу"
             ref={usernameRef}
           />
         </div>
 
         {/* Password */}
-        <div className="grid w-full max-w-sm items-center gap-1.5 relative">
+        <div className="grid w-full items-center gap-1.5 relative">
           <Label className="text-[#2a2c41]">Нууц үг</Label>
-          <div className="relative lg:w-[80%]">
+          <div className="relative ">
             <Input
               type={showPassword ? "text" : "password"}
               className="w-full py-1 px-4 pr-10 rounded-md bg-white"
@@ -135,9 +129,9 @@ export const SignUp = () => {
         </div>
 
         {/* Confirm Password */}
-        <div className="grid w-full max-w-sm items-center gap-1.5 relative">
+        <div className="grid w-full items-center gap-1.5 relative">
           <Label className="text-[#2a2c41]">Нууц үг баталгаажуулах</Label>
-          <div className="relative lg:w-[80%]">
+          <div className="relative ">
             <Input
               type={showConfirmPassword ? "text" : "password"}
               className="w-full py-1 px-4 pr-10 rounded-md bg-white"
@@ -159,9 +153,9 @@ export const SignUp = () => {
         </div>
       </div>
 
-      <div className="w-full flex flex-col justify-center gap-2 items-center lg:items-start ">
+      <div className="w-full flex flex-col justify-center gap-4 items-center lg:items-start ">
         <button
-          className="w-fit rounded-md px-3 box-border text-[#f4f4f8] montserrat font-[500] bg-[#fc8d6f] border border-transparent py-2 hover:opacity-80  hover:border-gray-300"
+          className="w-full h-[44px] rounded-xl px-3 box-border text-[#f4f4f8] montserrat font-[500] bg-[#fc8d6f] border border-transparent py-2 hover:opacity-80  hover:border-gray-300"
           onClick={handleSubmit}
         >
           Бүртгүүлэх
@@ -170,12 +164,33 @@ export const SignUp = () => {
         {userAdded && (
           <p className="montserrat text-[12px] font-[500] text-[#f00]">
             {userAdded === "success"
-              ? "Account created successfully!"
+              ? "Амжилттай бүртгүүллээ!"
               : userAdded === "email_taken"
-                ? "Email already taken. Please try another one."
-                : "Please fill all fields"}
+                ? "Бүртгэлтэй и-мэйл байна!"
+                : "Бүх талбарыг бөглөнө үү!"}
           </p>
         )}
+
+        <button
+          type="button"
+          onClick={() => router.push("/")}
+          className="w-full h-[44px] rounded-xl border border-[#2a2c41] text-[#2a2c41] bg-white text-sm font-medium flex items-center justify-center gap-3 "
+        >
+          <span className="text-[30px] leading-none font-semibold">G</span>
+          Google-р нэвтрэх
+        </button>
+      </div>
+
+      <div className="flex justify-start items-center gap-1">
+        <p className="text-[#2a2c41] montserrat text-sm">
+          Бүртгэлтэй бол{" "}
+          <span
+            className="text-[#fcc050] montserrat underline cursor-pointer"
+            onClick={() => router.push("/login")}
+          >
+            Нэвтрэх
+          </span>
+        </p>
       </div>
     </div>
   );

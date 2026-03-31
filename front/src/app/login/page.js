@@ -94,12 +94,12 @@ export default function Login() {
         <div className="w-full lg:w-1/2 h-fit lg:h-full py-8 px-6 bg-[#f4f3f8] rounded-b-xl lg:rounded-r-xl lg:rounded-b-none">
           <div className="md:w-[60%] w-full h-full py-5 flex flex-col justify-center items-start gap-8 ">
             <div className="flex justify-start items-start gap-1 ">
-              <p className="text-[#2a2c41] montserrat text-2xl font-bold">
+              <p className="text-[#2a2c41] montserrat text-3xl font-bold">
                 Нэвтрэх
               </p>
             </div>
 
-            <div className="w-full flex flex-col gap-3">
+            <div className="w-full flex flex-col gap-6">
               {/* Email */}
               <div className="grid w-full items-center gap-1.5">
                 <Label className="text-[#2a2c41]">И-мэйл хаяг</Label>
