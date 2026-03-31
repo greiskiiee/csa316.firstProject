@@ -23,14 +23,14 @@ export default function Login() {
     const password = passwordRef.current?.value || "";
 
     if (!email || !password) {
-      setPassError("Please fill all fields.");
+      setPassError("Бүх талбарыг бөглөнө үү.");
       return;
     }
 
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URI}/login`,
-        { email, password }
+        { email, password },
       );
 
       const token = response.data.token;
@@ -51,7 +51,7 @@ export default function Login() {
       router.push("/home");
     } catch (error) {
       if (error.response?.status === 404) {
-        setPassError("Invalid password or email.");
+        setPassError("Нууц үг эсвэл и-мэйл буруу байна.");
       }
       console.error("Login failed:", error);
       setMessage(false);
@@ -62,7 +62,7 @@ export default function Login() {
     const email = emailRef.current?.value;
 
     if (!email) {
-      alert("Please enter your email first.");
+      alert("И-мэйл хаягаа оруулна уу.");
       return;
     }
 
@@ -92,39 +92,33 @@ export default function Login() {
           </p>
         </div>
         <div className="w-full lg:w-1/2 h-fit lg:h-full py-8 px-6 bg-[#f4f3f8] rounded-b-xl lg:rounded-r-xl lg:rounded-b-none">
-          <div className="w-full h-full py-5 flex flex-col justify-center items-start gap-8">
-            <div className="flex justify-start items-center gap-1">
-              <p className="text-[#2a2c41] montserrat text-[16px] lg:text-[22px]">
-                Don&#39;t have an account?{" "}
-                <span
-                  className="text-[#fcc050] montserrat underline cursor-pointer"
-                  onClick={() => router.push("/")}
-                >
-                  Sign Up
-                </span>
+          <div className="md:w-[60%] w-full h-full py-5 flex flex-col justify-center items-start gap-8 ">
+            <div className="flex justify-start items-start gap-1 ">
+              <p className="text-[#2a2c41] montserrat text-2xl font-bold">
+                Нэвтрэх
               </p>
             </div>
 
             <div className="w-full flex flex-col gap-3">
               {/* Email */}
-              <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label className="text-[#2a2c41]">Email</Label>
+              <div className="grid w-full items-center gap-1.5">
+                <Label className="text-[#2a2c41]">И-мэйл хаяг</Label>
                 <Input
                   type="email"
-                  className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
-                  placeholder="Enter your email"
+                  className="py-1 px-4 rounded-md bg-white"
+                  placeholder="Энд и-мэйлээ оруулна уу"
                   ref={emailRef}
                 />
               </div>
 
               {/* Password */}
-              <div className="grid w-full max-w-sm items-center gap-1.5 relative">
-                <Label className="text-[#2a2c41]">Password</Label>
-                <div className="relative lg:w-[80%]">
+              <div className="grid w-full items-center gap-1.5 relative">
+                <Label className="text-[#2a2c41]">Нууц үг</Label>
+                <div className="relative ">
                   <Input
                     type={showPassword ? "text" : "password"}
                     className="w-full py-1 px-4 pr-10 rounded-md bg-white"
-                    placeholder="Enter your password"
+                    placeholder="Энд нууц үгээ оруулна уу"
                     ref={passwordRef}
                   />
                   <button
@@ -141,26 +135,49 @@ export default function Login() {
               </div>
 
               <p
-                className="montserrat text-[14px] underline text-[#2a2c41]"
+                className="montserrat text-[14px] underline text-[#2a2c41] text-right"
                 onClick={sendMail}
               >
-                Forgot password ?
+                Нууц үг мартсан
               </p>
             </div>
 
-            <div className="flex flex-col justify-center gap-2 w-full items-center lg:items-start">
+            <div className="flex flex-col justify-center gap-4 w-full items-center lg:items-start">
               <button
-                className="w-fit rounded-md px-3 box-border text-[#f4f4f8] montserrat font-[500] bg-[#fc8d6f] border border-transparent py-2 hover:opacity-80  hover:border-gray-300"
+                className="w-full h-[44px] rounded-xl px-3 box-border text-[#f4f4f8] text-sm montserrat font-[500] bg-[#fc8d6f] border border-transparent py-2 hover:opacity-80  hover:border-gray-300"
                 onClick={handleLogIn}
               >
-                Login
+                Нэвтрэх
               </button>
 
               {userAdded && (
                 <p className="montserrat text-[12px] font-[500] text-green-500">
-                  Logged in successfully!
+                  Амжилттай нэвтэрлээ!
                 </p>
               )}
+
+              <button
+                type="button"
+                onClick={() => router.push("/")}
+                className="w-full h-[44px] rounded-xl border border-[#2a2c41] text-[#2a2c41] bg-white text-sm font-medium flex items-center justify-center gap-3 "
+              >
+                <span className="text-[30px] leading-none font-semibold">
+                  G
+                </span>
+                Google-р нэвтрэх
+              </button>
+            </div>
+
+            <div className="flex justify-start items-start gap-1 ">
+              <p className="text-[#2a2c41] montserrat text-sm ">
+                Бүртгэлгүй бол{" "}
+                <span
+                  className="text-[#fcc050] montserrat underline cursor-pointer"
+                  onClick={() => router.push("/")}
+                >
+                  Бүртгүүлэх
+                </span>
+              </p>
             </div>
           </div>
         </div>

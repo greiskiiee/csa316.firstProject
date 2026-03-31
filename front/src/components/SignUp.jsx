@@ -16,7 +16,6 @@ export const SignUp = () => {
   const usernameRef = useRef("");
   const passwordRef = useRef("");
   const confirmPasswordRef = useRef("");
-  const phoneNumberRef = useRef("");
 
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
@@ -28,7 +27,7 @@ export const SignUp = () => {
 
   const handlePass = () => {
     if (passwordRef.current.value.length < 8) {
-      setPassError("Password must be at least 8 characters");
+      setPassError("Нууц үг багадаа 8 тэмдэгт байх ёстой");
     } else {
       setPassError("");
     }
@@ -38,7 +37,7 @@ export const SignUp = () => {
     if (emailRegex.test(emailRef.current.value)) {
       setEmailError("");
     } else {
-      setEmailError("Invalid email address!");
+      setEmailError("Зөв и-мэйл оруулна уу!");
     }
   };
 
@@ -46,7 +45,7 @@ export const SignUp = () => {
     if (confirmPasswordRef.current.value === passwordRef.current.value) {
       setConfirmPassError("");
     } else {
-      setConfirmPassError("Password does not match");
+      setConfirmPassError("Нууц үг тохирохгүй байна!");
     }
   };
 
@@ -55,7 +54,6 @@ export const SignUp = () => {
       username: usernameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
-      phoneNumber: phoneNumberRef.current.value,
     };
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/user`, data);
@@ -79,60 +77,49 @@ export const SignUp = () => {
     <div className="w-full h-full py-5 flex flex-col justify-center items-start gap-8">
       <div className="flex justify-start items-center gap-1">
         <p className="text-[#2a2c41] montserrat text-[16px] lg:text-[22px]">
-          Already have an account?{" "}
+          Бүртгэлтэй бол{" "}
           <span
             className="text-[#fcc050] montserrat underline cursor-pointer"
             onClick={() => router.push("/login")}
           >
-            Log in
+            Нэвтрэх
           </span>
         </p>
       </div>
 
       <div className="w-full flex flex-col gap-3">
-        {/* Username */}
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label className="text-[#2a2c41]">Username</Label>
-          <Input
-            type="text"
-            className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
-            placeholder="Enter your username"
-            ref={usernameRef}
-          />
-        </div>
-
-        {/* Phone Number */}
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label className="text-[#2a2c41]">Phone number</Label>
-          <Input
-            type="tel"
-            className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
-            placeholder="Enter your phone number"
-            ref={phoneNumberRef}
-          />
-        </div>
-
         {/* Email */}
         <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label className="text-[#2a2c41]">Email</Label>
+          <Label className="text-[#2a2c41]">И-мэйл хаяг</Label>
           <Input
             type="email"
             className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
-            placeholder="Enter your email"
+            placeholder="Энд и-мэйлээ оруулна уу"
             ref={emailRef}
             onChange={handleEmail}
           />
           <p className="montserrat text-[12px] text-[#f00]">{emailError}</p>
         </div>
 
+        {/* Username */}
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label className="text-[#2a2c41]">Нэвтрэх нэр</Label>
+          <Input
+            type="text"
+            className="lg:w-[80%] py-1 px-4 rounded-md bg-white"
+            placeholder="Энд нэвтрэх нэрээ оруулна уу"
+            ref={usernameRef}
+          />
+        </div>
+
         {/* Password */}
         <div className="grid w-full max-w-sm items-center gap-1.5 relative">
-          <Label className="text-[#2a2c41]">Password</Label>
+          <Label className="text-[#2a2c41]">Нууц үг</Label>
           <div className="relative lg:w-[80%]">
             <Input
               type={showPassword ? "text" : "password"}
               className="w-full py-1 px-4 pr-10 rounded-md bg-white"
-              placeholder="Create a password"
+              placeholder="Нууц үг үүсгэх"
               ref={passwordRef}
               onChange={handlePass}
             />
@@ -149,12 +136,12 @@ export const SignUp = () => {
 
         {/* Confirm Password */}
         <div className="grid w-full max-w-sm items-center gap-1.5 relative">
-          <Label className="text-[#2a2c41]">Confirm Password</Label>
+          <Label className="text-[#2a2c41]">Нууц үг баталгаажуулах</Label>
           <div className="relative lg:w-[80%]">
             <Input
               type={showConfirmPassword ? "text" : "password"}
               className="w-full py-1 px-4 pr-10 rounded-md bg-white"
-              placeholder="Enter your password"
+              placeholder="Нууц үгээ давтана уу"
               ref={confirmPasswordRef}
               onChange={handleConfirmPass}
             />
@@ -177,7 +164,7 @@ export const SignUp = () => {
           className="w-fit rounded-md px-3 box-border text-[#f4f4f8] montserrat font-[500] bg-[#fc8d6f] border border-transparent py-2 hover:opacity-80  hover:border-gray-300"
           onClick={handleSubmit}
         >
-          Create an account
+          Бүртгүүлэх
         </button>
 
         {userAdded && (
@@ -185,8 +172,8 @@ export const SignUp = () => {
             {userAdded === "success"
               ? "Account created successfully!"
               : userAdded === "email_taken"
-              ? "Email already taken. Please try another one."
-              : "Please fill all fields"}
+                ? "Email already taken. Please try another one."
+                : "Please fill all fields"}
           </p>
         )}
       </div>
