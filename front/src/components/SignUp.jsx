@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import GoogleBtn from "./GoogleBtn";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -171,14 +172,7 @@ export const SignUp = () => {
           </p>
         )}
 
-        <button
-          type="button"
-          onClick={() => router.push("/")}
-          className="w-full h-[44px] rounded-xl border border-[#2a2c41] text-[#2a2c41] bg-white text-sm font-medium flex items-center justify-center gap-3 "
-        >
-          <span className="text-[30px] leading-none font-semibold">G</span>
-          Google-р нэвтрэх
-        </button>
+        <GoogleBtn label="Google-р нэвтрэх" />
       </div>
 
       <div className="flex justify-start items-center gap-1">
