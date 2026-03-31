@@ -2,6 +2,11 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import PropTypes from "prop-types";
+
+GoogleBtn.propTypes = {
+  label: PropTypes.string,
+};
 
 export default function GoogleBtn({ label = "Google-р нэвтрэх" }) {
   const router = useRouter();
