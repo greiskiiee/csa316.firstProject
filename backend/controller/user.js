@@ -41,6 +41,11 @@ export const getUsers = async (req, res) => {
 
 export const getUser = async (req, res) => {
   const { _id } = req.params;
+
+  if (!_id || _id === "null") {
+    return res.status(400).send({ success: false, message: "Invalid user ID" });
+  }
+
   try {
     const user = await UserModel.findById(_id);
     res.status(200).send({ success: true, user: user }).end();
@@ -51,14 +56,14 @@ export const getUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const { _id } = req.params; // Get userId from request params or body
+  const { _id } = req.params;
   const { username, email, phoneNumber, password } = req.body;
 
   try {
     const updatedUser = await UserModel.findByIdAndUpdate(
-      _id, // Find user by ID
-      { username, email, phoneNumber, password }, // The data to update
-      { new: true, runValidators: true } // Ensure the new document is returned and validators are applied
+      _id,
+      { username, email, phoneNumber, password },
+      { new: true, runValidators: true },
     );
 
     if (!updatedUser) {

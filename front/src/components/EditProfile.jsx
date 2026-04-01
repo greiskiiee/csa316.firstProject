@@ -63,7 +63,7 @@ export default function EditProfile({ _id }) {
         <Input
           id="name"
           type="text"
-          value={name}
+          value={name || ""}
           onChange={(e) => setName(e.target.value)}
           className="mt-2 p-2 border rounded-md"
         />
@@ -75,7 +75,7 @@ export default function EditProfile({ _id }) {
         <Input
           id="email"
           type="email"
-          value={email}
+          value={email || ""}
           onChange={(e) => setEmail(e.target.value)}
           className="mt-2 p-2 border rounded-md"
         />
