@@ -14,21 +14,17 @@ export default function GoogleBtn({ label = "Google-р нэвтрэх" }) {
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
-        // Get user info from Google
-        const userInfo = await axios.get(
-          "https://www.googleapis.com/oauth2/v3/userinfo",
-          {
-            headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
-          },
-        );
+        console.log("Backend URI:", process.env.NEXT_PUBLIC_BACKEND_URI);
 
-        // Send to your backend
+        await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
+        });
+
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_BACKEND_URI}/auth/google`,
-          { credential: tokenResponse.access_token, ...userInfo.data },
+          { access_token: tokenResponse.access_token },
         );
 
-        // Same token handling as your normal login
         localStorage.setItem("token", response.data.token);
         router.push("/home");
       } catch (error) {
